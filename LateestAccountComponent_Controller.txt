@@ -1,0 +1,21 @@
+({
+	doInit : function(c, event, helper) {
+		var action=c.get("c.getContact");
+        action.setCallback(this, function(response){
+            var state=response.getState();
+            
+            if(state=="SUCCESS"){
+                console.log('Result Succed');
+                c.set("v.copntacts",response.getReturnValue());
+               // console.log('Return Value'+JSON.Stringfy(response.getReturnValue()));
+            }
+            else{
+                console.log('Eeror getting')
+                alert('getting error');
+            }
+            
+            
+        });
+        $A.enqueueAction(action);
+	}
+})

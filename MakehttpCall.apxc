@@ -1,0 +1,22 @@
+public class MakehttpCall {
+    public void getPostEcho(){
+        Http p=new Http();
+        HttpRequest req=new HttpRequest();
+        String endpoint='https://postman-echo.com/get?foo1=bar1&foo2=bar2';
+        req.setEndpoint(endpoint);
+        req.setMethod('GET');
+        HttpResponse res=p.send(req);
+        String body=res.getBody();
+        system.debug('Output'+body);
+        
+        System.JSONParser jp=JSON.createParser(body);
+        while(jp.nextToken()!=null){
+            if(jp.getText()=='args')
+                jp.nextToken();
+            String arg=jp.getText();
+            
+            
+        }
+        
+    }
+}

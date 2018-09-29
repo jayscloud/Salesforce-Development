@@ -1,0 +1,11 @@
+public class NoOFContactHelper {
+    public static void SetCount(Set<Id> Ids){
+       List<aggregateResult> results=[Select accountId, count(id) contactcount from contact where AccountId in :Ids  group by AccountId];
+        Map<Id,Account> accounts=new Map<Id,Account>([Select id,NuberOfContact__C from Account where Id in :Ids]);
+        for(aggregateResult ar:results){
+            accounts.get((Id)ar.get('accountId')).NuberOfContact__c=(Integer)ar.get('contactcount');
+        }
+        update accounts.values();
+    }
+
+}

@@ -1,0 +1,62 @@
+trigger NoofContact on Contact (after insert,after update,after delete, after undelete) {
+    
+    
+    if(Trigger.isAfter && trigger.isInsert){
+        
+        Set<Id>  accIds=new Set<Id>();
+        for(Contact con: Trigger.new){
+            if(con.accountId!=null){
+                
+          accIds.add(con.AccountId);
+              }
+        }
+          NoOFContactHelper.SetCount(accIds);
+        
+}
+    
+     if(Trigger.isAfter && trigger.isUpdate){
+       
+        Set<Id> accIds=new Set<Id>();
+         for(Contact con: Trigger.newMap.values()){
+             
+             if(con.accountId!=Trigger.oldMap.get(con.Id).accountId){
+                 system.debug('#########Atttention>>>>>>>>>>>>Contact AccountId has been changed');
+                 if(con.AccountId!=null && con.AccountId!=''){
+               accIds.add(con.AccountId);
+                 }
+                 if(Trigger.oldMap.get(con.Id).accountId!=null){
+                 accIds.add(Trigger.oldMap.get(con.Id).accountId);
+                 }
+             }
+             
+        }
+          NoOFContactHelper.SetCount(accIds);         
+}
+     if(Trigger.isAfter && trigger.isDelete){
+         Set<Id>  accIds=new Set<Id>();
+         for(Contact con: Trigger.old){
+            if(con.accountId!=null){
+                
+          accIds.add(con.AccountId);
+              }
+        }
+ NoOFContactHelper.SetCount(accIds);         
+         
+}
+    
+     if(Trigger.isAfter && trigger.isUndelete){
+        
+        Set<Id>  accIds=new Set<Id>();
+        for(Contact con: Trigger.new){
+            if(con.accountId!=null){
+                
+          accIds.add(con.AccountId);
+              }
+        }
+          NoOFContactHelper.SetCount(accIds);
+        
+}
+    
+    
+    
+}
