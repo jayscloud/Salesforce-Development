@@ -7,16 +7,7 @@ public class MakehttpCall {
         req.setMethod('GET');
         HttpResponse res=p.send(req);
         String body=res.getBody();
-        system.debug('Output'+body);
-        
-        System.JSONParser jp=JSON.createParser(body);
-        while(jp.nextToken()!=null){
-            if(jp.getText()=='args')
-                jp.nextToken();
-            String arg=jp.getText();
-            
-            
-        }
+        system.debug('Output'+body); 
         
     }
 }
