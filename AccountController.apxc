@@ -2,5 +2,6 @@ public class AccountController {
     @AuraEnabled
     public static List<Account> getLatestTenAccount(){
        return [Select Name,Phone,CreatedDate from Account Order by createdDate desc LIMIT 10];
+       system.debug('Changing');
     }
 }
